@@ -1,8 +1,5 @@
 /*Imports*/
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.Arrays;
+import java.io.*;
 import java.util.Scanner;
 
 /* *
@@ -81,19 +78,23 @@ public class Part1 {
 		
 		/*Arrays & File IO*/
 		
-		File workWithArray= new File("P:/Users/HumanOutput/workspace/CSSSKL143_Lab1/workWithArrays.txt");
+		int[] exNumbers = {68,99,72,81,88};
+		
+		String filename = "workWithArray.txt";
 		PrintWriter dataToFile = null;
 		try {
-			dataToFile = new PrintWriter ("workWithArrays.txt");
+			dataToFile = new PrintWriter(new FileOutputStream(filename));
+			for(int z=0;z<exNumbers.length;z++) {
+				dataToFile.print(exNumbers[z] + ",");
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		int[] exNumbers = {68,99,72,81,88};
-		for(int z=0;z<exNumbers.length;z++) {
-			dataToFile.print(exNumbers[z]);
-		}
+		}finally {
+			if (dataToFile != null) {
+				dataToFile.close();
+            }
+        }
 		
 		p1.sumNumbers(exNumbers);
 		
