@@ -1,14 +1,21 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 /* *
+ * @author Ian Bryan
+ * @version 1.0
  * 
+ * This 
  */
 
 public class part2 {
 
+	static int totalOfNums = 0;
+	static double avgOfNums = 0.0;
+	
 	public static void main(String[] args) {
 
 		part2 p2 = new part2();
@@ -27,8 +34,21 @@ public class part2 {
 			for(int z=0;z<exNumbers.length;z++) {
 				dataToFile.print(exNumbers[z] + ",");
 			}
+			
+			sumNumbers(exNumbers);
+			dataToFile.println();
+			dataToFile.println(totalOfNums); //writing total of array indices to file on new line
+			dataToFile.println(avgOfNums); //writing average of array indices to file on new line
+			
+			Scanner sc1 = new Scanner(System.in);
+			System.out.println("Enter a value to find the index \nof it in the array...");
+			int numToFind = sc1.nextInt();
+			p2.findElement(exNumbers, numToFind);
+			sc1.close();
+			
+			p2.sumOnlyPositives(exNumbers);
+			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (dataToFile != null) {
@@ -36,15 +56,21 @@ public class part2 {
             }
         }
 		
-		p2.sumNumbers(exNumbers);
-		
-		Scanner sc1 = new Scanner(System.in);
-		System.out.println("Enter a value to find the index of");
-		int numToFind = sc1.nextInt();
-		p2.findElement(exNumbers, numToFind);
-		sc1.close();
-		
-		p2.sumOnlyPositives(exNumbers);
+		/*Printing everything from the file to the console*/
+		try {
+			File readFrom = new File("P:/Users/HumanOutput/workspace/CSSSKL143_Lab1/workWithArray.txt");
+
+            Scanner inputFile = new Scanner(readFrom);
+            
+            while (inputFile.hasNextLine()) {
+                String line = inputFile.nextLine();
+                System.out.println(line);
+            }
+            inputFile.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 		
 	}//end main
 	
@@ -56,12 +82,12 @@ public class part2 {
 	 * Write a function to sum up only positive integers in an array.
 	 * Write a function to populate an int array with values obtained from the console.
 	 * */
-	public void sumNumbers(int[] exNumbers) {
-		int totalOfNums = 0;
+	public static int sumNumbers(int[] exNumbers) {
 		for(int a=0;a<exNumbers.length;a++) {	
 			totalOfNums += exNumbers[a];
 		}
-		double avgOfNums = (double)totalOfNums / exNumbers.length;
+		avgOfNums = (double)totalOfNums / exNumbers.length;
+		return totalOfNums;
 	}
 	
 	public void findElement(int[] exNumbers, int numToFind) {
@@ -79,6 +105,6 @@ public class part2 {
 				positiveTotal += exNumbers[d];
 			}
 		}
-		System.out.println("positiveTotal=" + positiveTotal);
+		System.out.println("positiveTotal = " + positiveTotal);
 	}
 }
