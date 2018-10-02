@@ -58,6 +58,10 @@ public class Rectangle /* extends Shape */ {
 	//static method means you can call this without a target object reference!
 	//do static methods then have any concept of this?
 	public static boolean isEquals(Rectangle one, Rectangle two) {
+		/*@see
+		 * This is an example of a variable with local scope.
+		 * The scope of this boolean is local to this method
+		 * */
 		boolean retVal = false; //start off not being equal
 		
 		if( one.x == two.x && one.y == two.y && one.x2 == two.x2 && one.y2 == two.y2 ) {
@@ -75,6 +79,12 @@ public class Rectangle /* extends Shape */ {
 	public boolean equals(Object other) {
 		//does 'this' == other? 
 		//First, cast the object to its known type
+		
+		/*@see
+		 * This is variable with a scope that is local to
+		 * this method. It is an object but is also only
+		 * visible to this method
+		 * */
 		Rectangle theOther = (Rectangle) other;
 		
 		if( this.x == theOther.x && this.y == theOther.y && 
